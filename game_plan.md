@@ -49,9 +49,9 @@ project/
 |       +-- game_over.gd
 |
 +-- assets/
-    +-- sprites/
-    +-- audio/
-    +-- fonts/
+	+-- sprites/
+	+-- audio/
+	+-- fonts/
 ```
 
 ---
@@ -85,10 +85,10 @@ GalleryRoom
 +-- SpawnLeft
 +-- SpawnRight
 +-- PaintingSpawns
-    +-- SpawnPoint_1
-    +-- SpawnPoint_2
-    +-- SpawnPoint_3
-    +-- SpawnPoint_4
+	+-- SpawnPoint_1
+	+-- SpawnPoint_2
+	+-- SpawnPoint_3
+	+-- SpawnPoint_4
 ```
 - **gallery_room.gd** - Manages painting instances at spawn points; triggers NPC spawns from SpawnLeft and SpawnRight markers; emits via SignalHub when a painting is removed.
 
