@@ -5,7 +5,14 @@ extends CharacterBody2D
 # DONE - Walking needs to be called here in a _process()
 # PLAN CHANGED - random number multiplied up to change the x position
 # NEW PLAN DONE - using a set speed * delta.
+# DONE AS ARRAY - NPC types
+# TODO - Steal function
 
+const NPC_TYPE = [
+	"visitor",
+	"guard",
+	"thief"
+]
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
 var speed = 100 # Adjust speed here 100 px later multiplied by delta.
@@ -15,7 +22,7 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 	var random_num = randf() # random number between 0 and 1 inclussive.
 	if random_num < 0.1: # bottom 10% chance of standing still.
 		movement = 0
-	if random_num > 0.9: # top 10% chance of changing direction.
+	if random_num > 0.95: # top 10% chance of changing direction.
 		if direction == "right":
 			direction = "left"
 			movement = speed * -1 # negative moves left
@@ -24,7 +31,6 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			movement = speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
-
 
 
 
