@@ -1,32 +1,44 @@
 extends CharacterBody2D
-@onready var timer: Timer = $Timer
+#@onready var timer: Timer = $Timer
+# ^ Not currently needed.
 
-# add move_and_slide() from tut for movement.
+# DONE - Walking needs to be called here in a _process()
+# PLAN CHANGED - random number multiplied up to change the x position
+# NEW PLAN DONE - using a set speed * delta.
 
-##Walking needs to be called here in a _process()
-# random number multiplied up to change the x position
-var movement = 0
-var direction = "right"
-var speed = 100
-
-func _process(delta: float) -> void:
+var movement = 0 # initially not moving
+var direction = "right" # For ease of readability.
+var speed = 100 # Adjust speed here 100 px later multiplied by delta.
+ 
+func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
 #func _on_timer_timeout() -> void:
-	var random_num = randf()
-	#print(random_num)
-	if random_num < 0.1:
+	var random_num = randf() # random number between 0 and 1 inclussive.
+	if random_num < 0.1: # bottom 10% chance of standing still.
 		movement = 0
-	if random_num > 0.9:
+	if random_num > 0.9: # top 10% chance of changing direction.
 		if direction == "right":
 			direction = "left"
-			movement = speed * -1
+			movement = speed * -1 # negative moves left
 		elif direction == "left":
 			direction = "right"
-			movement = speed * 1
-	print(movement)
-	position.x += movement * delta
-	
-	
-	
+			movement = speed * 1 # Positive moves right
+	#print(movement) # for console visibility of change
+	position.x += movement * delta # Updates the current x axis position of npc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Below was the old plan of using timer which I moved away from
+# Code kept until
 	#if random_num > 0.98:
 		##position.x += 1000 * _current_delta
 		#position.x = move_toward(position.x, position.x+500, _current_delta*100)
