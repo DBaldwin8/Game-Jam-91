@@ -7,6 +7,8 @@ extends CharacterBody2D
 # NEW PLAN DONE - using a set speed * delta.
 # Done - NPC types
 # TODO - Steal function
+	   #|- Should emit signal for stealing.
+	   #|- Game manager should recieve signal and change art/stolen count
 
 const NPC_TYPE = [
 	"visitor",
@@ -22,7 +24,7 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 	var random_num = randf() # random number between 0 and 1 inclussive.
 	if random_num < 0.1: # bottom 10% chance of standing still.
 		movement = 0
-	if random_num > 0.9: # top 10% chance of changing direction.
+	if random_num > 0.95: # top 10% chance of changing direction.
 		if direction == "right":
 			direction = "left"
 			movement = speed * -1 # negative moves left
