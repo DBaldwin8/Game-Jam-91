@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://by25ig0dd0bcn"]
+
+[ext_resource type="Texture2D" uid="uid://bttaeb6aqjh5c" path="res://assets/Paintings-set 1-Brown Wood Frames.png" id="1_7qxix"]
+
+[resource]
+atlas = ExtResource("1_7qxix")
+region = Rect2(58, 160, 30, 38)
