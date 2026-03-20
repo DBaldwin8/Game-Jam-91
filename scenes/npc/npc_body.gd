@@ -7,9 +7,10 @@ class_name Npc
 # Done - NPC types
 #TODO - Function to assign NPC TYPE, in a _ready function, 
 #TODO - Steal function
-	   #|- Should emit signal for stealing on the signal hub.
+	   #|- DONE Should emit signal for stealing on the signal hub.
+	   #|- Game manager recieves signal
 	   #|- Game manager should recieve signal and change art/stolen count,
-			#emit should be called from signal hub
+			# DONE emit should be called from signal hub
 	   #|- Only if in area chance to steal paintings.
 
 const NPC_TYPE = [
@@ -17,6 +18,9 @@ const NPC_TYPE = [
 	"guard",
 	"thief"
 ]
+
+const WAIT_TIME: float = 2.0
+var _t: float = 0.0
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
@@ -35,9 +39,17 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			movement = speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
+	
+	_t += delta
+	if _t >= WAIT_TIME:
+		_t -= WAIT_TIME
+		steal_painting()
+	#print(_t)
 
 # Functions steal plan
 # Needs to decide if it should still a painting once in range.
 	# random number = chance to steal.
 	# on chance needs to omit a steal signal
 # Steal signal needs to be created in signal hub and called in steal function.
+func steal_painting():
+	SignalHub.emit_stolen_painting()
