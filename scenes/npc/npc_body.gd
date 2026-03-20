@@ -8,9 +8,11 @@ class_name Npc
 #TODO - Function to assign NPC TYPE, in a _ready function, 
 #TODO - Steal function
 	   #|- DONE Should emit signal for stealing on the signal hub.
-	   #|- Game manager recieves signal
+	   #|- DONE Game manager recieves signal
 	   #|- Game manager should recieve signal and change art/stolen count,
-			# DONE emit should be called from signal hub
+			# Game manager dictionary of STATE.
+			# change STATE.
+			# DONE emit should be called from signal hub.
 	   #|- Only if in area chance to steal paintings.
 
 const NPC_TYPE = [
