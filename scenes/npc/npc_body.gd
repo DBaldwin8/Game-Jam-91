@@ -6,18 +6,20 @@ class_name Npc
 # PLAN CHANGED - random number multiplied up to change the x position
 # NEW PLAN DONE - using a set speed * delta.
 # Done - NPC types
-#TODO - Function to assign NPC TYPE, in a _ready function, 
+# DONE - Function to assign NPC TYPE, in a _ready function, NOTE NO LONGER DONE IN _READY
 #TODO - Steal function
 	   #|- DONE Should emit signal for stealing on the signal hub.
 	   #|- DONE Game manager recieves signal
-	   #|- TODO Game manager should recieve signal and change art/stolen count,
+	   #|- Done Game manager should recieve signal and change art/stolen count,
 			# DONE Game manager dictionary of STATE.
 			# DONE Adds to stolen count.
 			# DONE emit should be called from signal hub.
 			# DONE After stealing had to exit. RANOM left or right.
-			# TODO Needs to pass painting?
-	   #|- Only if in area chance to steal paintings.
-#	 TODO change int to float for chance_to_steal
+	   #|- TODO Only if in area chance to steal paintings.
+		# TODO Needs to pass painting? NOTE future.
+	# TODO change int to float for chance_to_steal
+
+# IMPORTANT TODO ADD COMMENTS TO NEW CODE.
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
@@ -34,7 +36,6 @@ var direction = "right" # For ease of readability.
 
 var heist_target = 1
 var escaping = false
-
 
 func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
 	if !escaping :
@@ -65,7 +66,7 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 
 func escape():
 	escaping = true
-	var random_escape_direction = randf()
+	var random_escape_direction = 0.5
 	movement = npc_speed * +1 if random_escape_direction < 0.5 else npc_speed * -1
 
 func steal_painting():
