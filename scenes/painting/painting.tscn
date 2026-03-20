@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvcnm20pc4wal"]
+[gd_scene load_steps=8 format=3 uid="uid://bvcnm20pc4wal"]
 
 [ext_resource type="Script" uid="uid://s51xayl3xd6j" path="res://scenes/painting/painting.gd" id="1_3o4x8"]
 [ext_resource type="Texture2D" uid="uid://clkxoaec7dsj7" path="res://assets/paintings/p1.tres" id="2_i1usq"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://by25ig0dd0bcn" path="res://assets/paintings/p4.tres" id="5_0lqm4"]
 [ext_resource type="Texture2D" uid="uid://7flxy040nf07" path="res://assets/paintings/p5.tres" id="6_v0akl"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iubsl"]
+radius = 59.0339
+
 [node name="Painting" type="Node2D"]
 script = ExtResource("1_3o4x8")
 paintings = Array[Texture2D]([ExtResource("2_i1usq"), ExtResource("3_1dobr"), ExtResource("4_ww7ps"), ExtResource("5_0lqm4"), ExtResource("6_v0akl")])
@@ -14,3 +17,8 @@ paintings = Array[Texture2D]([ExtResource("2_i1usq"), ExtResource("3_1dobr"), Ex
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2.75, 2.75)
 texture = ExtResource("2_i1usq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_iubsl")

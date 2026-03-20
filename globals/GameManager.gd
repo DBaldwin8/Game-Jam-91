@@ -23,4 +23,5 @@ func _ready() -> void:
 	# Needs the function to be referenced when signal is omitted.
 
 func painting_stolen_confirmation(): #Function to react to the signal
-	print("CAN CONFIRM")
+	#print("CAN CONFIRM")
+	pass

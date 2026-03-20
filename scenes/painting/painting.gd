@@ -6,6 +6,7 @@ class_name Painting # My own class
 @export var paintings: Array[Texture2D]
 # on scene load -> get ref to the sprite to put pictures on it
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var area_2d: Area2D = $Area2D
 
 # on scene initilisation
 func _ready() -> void:
@@ -14,7 +15,14 @@ func _ready() -> void:
 	# set the sprite texture to the rand painting
 	sprite_2d.texture = paintings[rand_pi]
 
-
+func _process(delta: float) -> void:
+	var overlaps = area_2d.get_overlapping_bodies()
+	for body in overlaps:
+		if body is Npc:
+			print("NPC overlapping painting")
+	
+	
+	
 # TODO
 # - Create separate @export array for frames, pictures
 # - Create new spite2D node in scene tree
