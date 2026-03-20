@@ -13,15 +13,14 @@ grid_size = 115
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -35.0
-offset_top = -47.0
 offset_right = 1192.0
-offset_bottom = 690.0
+offset_bottom = 651.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = -80.0
+offset_left = -35.0
 offset_top = 343.0
-offset_right = 1240.0
-offset_bottom = 690.0
+offset_right = 1192.0
+offset_bottom = 651.0
 color = Color(0.470076, 0.470076, 0.470076, 1)
 
 [node name="Left" type="Marker2D" parent="."]

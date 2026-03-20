@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cytrryf1wpwfy"]
+
+[node name="Instructions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "DOWN ARROW
+To switch room
+↓"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "↑
+UP ARROW
+To switch room"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "LEFT ARROW →
+To pan camera"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "← LEFT ARROW
+To pan camera"
+
+[node name="Label5" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CLICK the suspected theif.
+CLICK to start."
+horizontal_alignment = 1

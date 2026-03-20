@@ -13,7 +13,7 @@ var paintings: Array = []
 
 func _ready() -> void:
 	spawn_paintings()
-	spawn_npc()
+	#spawn_npc()
 	
 func spawn_npc() -> void:
 	var rand_marker = randf() # Random spawn marker

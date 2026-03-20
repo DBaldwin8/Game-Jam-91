@@ -3,9 +3,10 @@ extends Node
 # Autoload singleton; 
 # tracks and mutates game state only
 # (stolen count, wrong arrests, active thief reference).
+const GALLERY = preload("res://scenes/gallery/gallery.tscn")
 
 var config = {
-	"galaries" = 0,
+	"galaries" = 3,
 	"paintings" = 0,
 	"thieves" = 0,
 	"visitors" = 0,
@@ -31,6 +32,8 @@ func _ready() -> void:
 	
 	# Connect gallery signals
 	SignalHub.NPC_leaving.connect(_on_NPC_leaving)
+	
+	spawn_galleries()
 
 # TODO
  #- control game state [menu, play, pause]
@@ -67,3 +70,15 @@ func _on_NPC_leaving(npc: Npc) -> void:
 func painting_stolen_confirmation(): #Function to react to the signal
 	#print("CAN CONFIRM")
 	pass
+	
+	
+
+# Game Manager stuff
+func spawn_galleries() -> void:
+	var viewport_height = get_viewport().size.y
+	print(viewport_height)
+	for i in range(config.galaries):
+		var new_gallery = GALLERY.instantiate()
+		add_child(new_gallery)
+		new_gallery.position = Vector2(0.0,viewport_height * i)
+		pass
