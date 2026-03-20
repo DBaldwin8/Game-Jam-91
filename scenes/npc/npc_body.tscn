@@ -9,6 +9,7 @@ height = 134.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_gybax")
+speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(536.5625, 310.6866)
@@ -20,9 +21,3 @@ texture = ExtResource("2_gybax")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(536.5625, 310.6866)
 shape = SubResource("CapsuleShape2D_5swxq")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

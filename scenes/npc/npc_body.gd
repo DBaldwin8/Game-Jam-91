@@ -1,30 +1,38 @@
 extends CharacterBody2D
-#@onready var timer: Timer = $Timer
-# ^ Not currently needed.
+class_name Npc
 
 # DONE - Walking needs to be called here in a _process()
 # PLAN CHANGED - random number multiplied up to change the x position
 # NEW PLAN DONE - using a set speed * delta.
 # Done - NPC types
-# TODO - Steal function
-	   #|- Should emit signal for stealing.
-	   #|- Game manager should recieve signal and change art/stolen count
+#TODO - Function to assign NPC TYPE, in a _ready function, 
+#TODO - Steal function
+	   #|- DONE Should emit signal for stealing on the signal hub.
+	   #|- DONE Game manager recieves signal
+	   #|- Game manager should recieve signal and change art/stolen count,
+			# Game manager dictionary of STATE.
+			# change STATE.
+			# DONE emit should be called from signal hub.
+	   #|- Only if in area chance to steal paintings.
 
 const NPC_TYPE = [
 	"visitor",
 	"guard",
 	"thief"
 ]
+# Timer related
+const WAIT_TIME: float = 2.0 
+var _timer_current_time: float = 0.0 
+
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
-var speed = 100 # Adjust speed here 100 px later multiplied by delta.
+@export var speed : int # Now set within inspector, default 100.
  
 func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
-#func _on_timer_timeout() -> void:
 	var random_num = randf() # random number between 0 and 1 inclussive.
 	if random_num < 0.1: # bottom 10% chance of standing still.
 		movement = 0
-	if random_num > 0.95: # top 10% chance of changing direction.
+	if random_num > 0.95: # top 5% chance of changing direction.
 		if direction == "right":
 			direction = "left"
 			movement = speed * -1 # negative moves left
@@ -33,39 +41,17 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			movement = speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
+	# Below is the timer function for testing the signal.
+	_timer_current_time += delta
+	if _timer_current_time >= WAIT_TIME:
+		_timer_current_time -= WAIT_TIME
+		steal_painting()
+	#print(_timer_current_time) # Prints time for timer.
 
-
-
-
-
-
-
-
-
-
-
-
-# Below was the old plan of using timer which I moved away from
-# Code kept until
-	#if random_num > 0.98:
-		##position.x += 1000 * _current_delta
-		#position.x = move_toward(position.x, position.x+500, _current_delta*100)
-		#print(position.x)
-	#elif random_num > 0.96:
-		##position.x -= 1000 * _current_delta
-		#position.x = move_toward(position.x, position.x-500, _current_delta*100)
-		#print(position.x)
-	#else:
-		#pass
-	#timer.start()
-# If randomNum > 0.1 change direction
-# else change directions
-#func changeDirection():
-	#var speed = 10
-	#var direction = 0
-	#if random_num > 0.9:
-		#if direction >= 0:
-			#direction = speed * _current_delta * 1
-		#if direction < 0:
-			#direction = speed * _current_delta * -1
-	#position.x = direction
+# Functions steal plan
+# Needs to decide if it should still a painting once in range.
+	# random number = chance to steal.
+	# on chance needs to omit a steal signal
+# Steal signal needs to be created in signal hub and called in steal function.
+func steal_painting():
+	SignalHub.emit_stolen_painting() # Call to emit signal.
