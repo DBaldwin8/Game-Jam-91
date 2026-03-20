@@ -5,7 +5,7 @@ extends Node
 # (stolen count, wrong arrests, active thief reference).
 
 var config = {
-	"galaries" = 0,
+	"galleries" = 0,
 	"paintings" = 0,
 	"thieves" = 0,
 	"visitors" = 0,
