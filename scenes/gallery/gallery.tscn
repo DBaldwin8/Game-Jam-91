@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://cen2rd1o65t4m"]
+[gd_scene load_steps=2 format=3 uid="uid://cen2rd1o65t4m"]
+
+[ext_resource type="Script" uid="uid://b76d82ncq6lid" path="res://scenes/gallery/gallery.gd" id="1_cfwji"]
 
 [node name="Gallery" type="Node2D"]
+script = ExtResource("1_cfwji")
+
+[node name="Node2D" type="Node2D" parent="."]

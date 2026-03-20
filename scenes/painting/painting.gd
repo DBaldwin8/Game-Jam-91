@@ -16,6 +16,6 @@ func _ready() -> void:
 
 
 # TODO
-#- Create separate @export array for frames, pictures
-#- Ran select one from each
-#- Run scene, see ran combo appear on screen
+# - Create separate @export array for frames, pictures
+# - Ran select one from each
+# - Run scene, see ran combo appear on screen
