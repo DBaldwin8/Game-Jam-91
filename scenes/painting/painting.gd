@@ -17,5 +17,8 @@ func _ready() -> void:
 
 # TODO
 # - Create separate @export array for frames, pictures
-# - Ran select one from each
-# - Run scene, see ran combo appear on screen
+# - Create new spite2D node in scene tree
+# - place new sprite2d ontop of painting sprite2d
+# - Create new ref to sprite2d in script
+# - create new rand_fi(random fram index)
+# - set the new sprite2d node texture to the random frame
