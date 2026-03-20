@@ -35,3 +35,9 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			movement = speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
+
+# Functions steal plan
+# Needs to decide if it should still a painting once in range.
+	# random number = chance to steal.
+	# on chance needs to omit a steal signal
+# Steal signal needs to be created in signal hub and called in steal function.
