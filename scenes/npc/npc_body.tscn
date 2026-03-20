@@ -13,6 +13,7 @@ npc_speed = 200
 chance_of_steal = 5
 chance_to_stand_still = 0.1
 chance_to_change_direction_upper = 0.95
+npc_type = "thief"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(536.5625, 310.6866)

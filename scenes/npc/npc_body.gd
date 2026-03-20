@@ -14,16 +14,10 @@ class_name Npc
 			# DONE Game manager dictionary of STATE.
 			# DONE Adds to stolen count.
 			# DONE emit should be called from signal hub.
-			# TODO After stealing had to exit. RANOM left or right.
+			# DONE After stealing had to exit. RANOM left or right.
 			# TODO Needs to pass painting?
 	   #|- Only if in area chance to steal paintings.
 #	 TODO change int to float for chance_to_steal
-
-const NPC_TYPE = [
-	"visitor",
-	"guard",
-	"thief"
-]
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
@@ -35,29 +29,44 @@ var direction = "right" # For ease of readability.
 @export var chance_to_stand_still : float
 ## Chance from float to 1. Suggested 0.95.
 @export var chance_to_change_direction_upper : float
- 
-func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
-	var random_num = randf() # random number between 0 and 1 inclussive.
-	if random_num < chance_to_stand_still: 
-		movement = 0
-	if random_num > chance_to_change_direction_upper: # top 5% chance of changing direction.
-		if direction == "right":
-			direction = "left"
-			movement = npc_speed * -1 # negative moves left
-		elif direction == "left":
-			direction = "right"
-			movement = npc_speed * 1 # Positive moves right
-	position.x += movement * delta # Updates the current x axis position of npc.
+## enter as thief, visitor or guard
+@export var npc_type : String
 
-	if self.movement == 0 :
-		if $Timer.is_stopped() :
-			print("timer stopped")
-			var random_steal_num = randi_range(0,100)
-			if random_steal_num < chance_of_steal:
-				$Timer.start()
+var heist_target = 1
+var escaping = false
+
+
+func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
+	if !escaping :
+		var random_num = randf() # random number between 0 and 1 inclussive.
+		if random_num < chance_to_stand_still: 
+			movement = 0
+		if random_num > chance_to_change_direction_upper: # top 5% chance of changing direction.
+			if direction == "right":
+				direction = "left"
+				movement = npc_speed * -1 # negative moves left
+			elif direction == "left":
+				direction = "right"
+				movement = npc_speed * 1 # Positive moves right
+	position.x += movement * delta # Updates the current x axis position of npc.
+	
+	if npc_type == "thief" && self.movement == 0 && $Timer.is_stopped() :
+		print("timer stopped")
+		var random_steal_num = randi_range(0,100)
+		if random_steal_num < chance_of_steal:
+			steal_painting()
+			heist_target -= 1
+			if heist_target <= 0:
+				escape()
+			else:
 				print("timer restarted")
-				steal_painting()
+				$Timer.start()
 # NEEDS TO PASS PAINTING LATER ON.
+
+func escape():
+	escaping = true
+	var random_escape_direction = randf()
+	movement = npc_speed * +1 if random_escape_direction < 0.5 else npc_speed * -1
 
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
