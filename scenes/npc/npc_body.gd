@@ -1,5 +1,6 @@
 extends CharacterBody2D
 class_name Npc
+@onready var timer: Timer = $Timer
 
 # DONE - Walking needs to be called here in a _process()
 # PLAN CHANGED - random number multiplied up to change the x position
@@ -10,7 +11,7 @@ class_name Npc
 	   #|- DONE Should emit signal for stealing on the signal hub.
 	   #|- DONE Game manager recieves signal
 	   #|- Game manager should recieve signal and change art/stolen count,
-			# Game manager dictionary of STATE.
+			# DONE Game manager dictionary of STATE.
 			# change STATE.
 			# DONE emit should be called from signal hub.
 	   #|- Only if in area chance to steal paintings.
@@ -26,10 +27,10 @@ var _timer_current_time: float = 0.0
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
-## The pixels per a draw that NPCs move.
-@export var npc_speed : int # Now set within inspector. Suggested 100.
-## Chance from float to 1.
-@export var chance_of_steal : float
+## The pixels per a draw that NPCs move. Suggested 100
+@export var npc_speed : int 
+## Chance from int in 100. Suggested 5
+@export var chance_of_steal : int
 ## Chance from 0 to float. Suggested 0.1.
 @export var chance_to_stand_still : float
 ## Chance from float to 1. Suggested 0.95.
@@ -52,19 +53,23 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 	_timer_current_time += delta
 	if _timer_current_time >= WAIT_TIME:
 		_timer_current_time -= WAIT_TIME
-		steal_painting()
+		#steal_painting()
 	#print(_timer_current_time) # Prints time for timer.
 	# logic for if steal painting should be called.
 	if self.movement == 0 :
-		var random_steal_num = randf()
-		print(random_steal_num)
-		if random_steal_num > chance_of_steal:
-			steal_painting()
+		if $Timer.is_stopped() :
+			print("timer stopped")
+			var random_steal_num = randi_range(0,100)
+			if random_steal_num < chance_of_steal:
+				$Timer.start()
+				print("timer restarted")
+				steal_painting()
 # Functions steal plan
 # Needs to decide if it should still a painting once in range.
 	# DONE random number = chance to steal. EXPORTED
 	# DONE on chance needs to omit a steal signal
-	# Add a timer so an only activate after a minimum time.
+	# DONE Add a timer so an only activate after a minimum time?
+	# WILL NEED TO PASS PAINTING LATER ON.
 # Steal signal needs to be created in signal hub and called in steal function.
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
