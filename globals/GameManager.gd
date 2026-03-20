@@ -6,5 +6,8 @@ extends Node
 
 
 func _ready() -> void:
-	SignalHub.stolen_painting.connect() 
+	SignalHub.stolen_painting.connect(painting_stolen_confirmation()) 
 	# Needs the function to be called when signal is omitted
+
+func painting_stolen_confirmation():
+	print("CAN CONFIRM")
