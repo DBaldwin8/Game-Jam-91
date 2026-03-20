@@ -18,9 +18,9 @@ const NPC_TYPE = [
 	"guard",
 	"thief"
 ]
-
-const WAIT_TIME: float = 2.0
-var _t: float = 0.0
+# Timer related
+const WAIT_TIME: float = 2.0 
+var _timer_current_time: float = 0.0 
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
@@ -39,12 +39,12 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			movement = speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
-	
-	_t += delta
-	if _t >= WAIT_TIME:
-		_t -= WAIT_TIME
+	# Below is the timer function for testing the signal.
+	_timer_current_time += delta
+	if _timer_current_time >= WAIT_TIME:
+		_timer_current_time -= WAIT_TIME
 		steal_painting()
-	#print(_t)
+	#print(_timer_current_time) # Prints time for timer.
 
 # Functions steal plan
 # Needs to decide if it should still a painting once in range.
@@ -52,4 +52,4 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 	# on chance needs to omit a steal signal
 # Steal signal needs to be created in signal hub and called in steal function.
 func steal_painting():
-	SignalHub.emit_stolen_painting()
+	SignalHub.emit_stolen_painting() # Call to emit signal.
