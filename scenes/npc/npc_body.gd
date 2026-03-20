@@ -10,12 +10,14 @@ class_name Npc
 #TODO - Steal function
 	   #|- DONE Should emit signal for stealing on the signal hub.
 	   #|- DONE Game manager recieves signal
-	   #|- Game manager should recieve signal and change art/stolen count,
+	   #|- TODO Game manager should recieve signal and change art/stolen count,
 			# DONE Game manager dictionary of STATE.
 			# DONE Adds to stolen count.
 			# DONE emit should be called from signal hub.
-			# Needs to pass painting?
+			# TODO After stealing had to exit. RANOM left or right.
+			# TODO Needs to pass painting?
 	   #|- Only if in area chance to steal paintings.
+#	 TODO change int to float for chance_to_steal
 
 const NPC_TYPE = [
 	"visitor",

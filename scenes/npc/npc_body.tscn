@@ -9,7 +9,7 @@ height = 134.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_gybax")
-npc_speed = 100
+npc_speed = 200
 chance_of_steal = 5
 chance_to_stand_still = 0.1
 chance_to_change_direction_upper = 0.95
