@@ -12,4 +12,5 @@ script = ExtResource("1_3o4x8")
 paintings = Array[Texture2D]([ExtResource("2_i1usq"), ExtResource("3_1dobr"), ExtResource("4_ww7ps"), ExtResource("5_0lqm4"), ExtResource("6_v0akl")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(519, 222)
+scale = Vector2(2.75, 2.75)
+texture = ExtResource("2_i1usq")
