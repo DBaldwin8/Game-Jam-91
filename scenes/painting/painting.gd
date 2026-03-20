@@ -15,7 +15,7 @@ func _ready() -> void:
 	# set the sprite texture to the rand painting
 	sprite_2d.texture = paintings[rand_pi]
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var overlaps = area_2d.get_overlapping_bodies()
 	for body in overlaps:
 		if body is Npc:

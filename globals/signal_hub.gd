@@ -1,9 +1,9 @@
 extends Node
 
 # Gallery Signals
-signal NPC_leaving
+signal NPC_leaving(NPC)
 
-func emit_NPC_leaving(NPC) -> void:
+func emit_NPC_leaving(NPC: Npc) -> void:
 	NPC_leaving.emit(NPC)
 
 
