@@ -12,8 +12,9 @@ class_name Npc
 	   #|- DONE Game manager recieves signal
 	   #|- Game manager should recieve signal and change art/stolen count,
 			# DONE Game manager dictionary of STATE.
-			# change STATE.
+			# DONE Adds to stolen count.
 			# DONE emit should be called from signal hub.
+			# Needs to pass painting?
 	   #|- Only if in area chance to steal paintings.
 
 const NPC_TYPE = [
@@ -21,9 +22,6 @@ const NPC_TYPE = [
 	"guard",
 	"thief"
 ]
-# Timer related
-const WAIT_TIME: float = 1.0 
-var _timer_current_time: float = 0.0 
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
@@ -47,15 +45,8 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 		elif direction == "left":
 			direction = "right"
 			movement = npc_speed * 1 # Positive moves right
-	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
-	# Below is the timer function for testing the signal.
-	_timer_current_time += delta
-	if _timer_current_time >= WAIT_TIME:
-		_timer_current_time -= WAIT_TIME
-		#steal_painting()
-	#print(_timer_current_time) # Prints time for timer.
-	# logic for if steal painting should be called.
+
 	if self.movement == 0 :
 		if $Timer.is_stopped() :
 			print("timer stopped")
@@ -64,12 +55,7 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 				$Timer.start()
 				print("timer restarted")
 				steal_painting()
-# Functions steal plan
-# Needs to decide if it should still a painting once in range.
-	# DONE random number = chance to steal. EXPORTED
-	# DONE on chance needs to omit a steal signal
-	# DONE Add a timer so an only activate after a minimum time?
-	# WILL NEED TO PASS PAINTING LATER ON.
-# Steal signal needs to be created in signal hub and called in steal function.
+# NEEDS TO PASS PAINTING LATER ON.
+
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
