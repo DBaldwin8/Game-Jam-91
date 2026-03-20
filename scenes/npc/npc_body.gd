@@ -14,6 +14,11 @@ class_name Npc
 			# change STATE.
 			# DONE emit should be called from signal hub.
 	   #|- Only if in area chance to steal paintings.
+	
+	
+# TODO MATT TEST
+# - Tweak NPC behaviour variables
+# - maybe lower probabilities on behaviour changes
 
 const NPC_TYPE = [
 	"visitor",

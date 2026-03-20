@@ -8,10 +8,22 @@ class_name Gallery
 @export var min_paintings_percent: float
 @export var grid_size: int
 const PAINTING = preload("res://scenes/painting/painting.tscn")
+const NPC_BODY = preload("res://scenes/npc/npc_body.tscn")
 var paintings: Array = []
 
 func _ready() -> void:
 	spawn_paintings()
+	spawn_npc()
+	
+func spawn_npc() -> void:
+	var rand_marker = randf() # Random spawn marker
+	var new_npc = NPC_BODY.instantiate() # Instantiate the NPC scene in memory
+	add_child(new_npc) # Add that instance to the scene tree
+	
+	if rand_marker < 0.5: # Set the position to that of a marker
+		new_npc.global_position = left.position
+	else:
+		new_npc.global_position = right.position
 
 func spawn_paintings() -> void:
 	# Get min & num of paintings to spawn

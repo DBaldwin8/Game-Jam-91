@@ -9,15 +9,13 @@ height = 134.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_gybax")
-speed = 100
+speed = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(536.5625, 310.6866)
-scale = Vector2(1.2275391, 1.3388535)
+scale = Vector2(1.22754, 1.33885)
 texture = ExtResource("2_gybax")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(536.5625, 310.6866)
 shape = SubResource("CapsuleShape2D_5swxq")
