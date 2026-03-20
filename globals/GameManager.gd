@@ -20,7 +20,7 @@ var STATE = {
 
 func _ready() -> void:
 	SignalHub.stolen_painting.connect(painting_stolen_confirmation)
-	# Needs the function to be referenced when signal is omitted.
+	# Needs the function to be referenced when signal is emitted.
 
 func painting_stolen_confirmation(): #Function to react to the signal
 	print("CAN CONFIRM")

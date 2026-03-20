@@ -21,24 +21,31 @@ const NPC_TYPE = [
 	"thief"
 ]
 # Timer related
-const WAIT_TIME: float = 2.0 
+const WAIT_TIME: float = 1.0 
 var _timer_current_time: float = 0.0 
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
-@export var speed : int # Now set within inspector, default 100.
+## The pixels per a draw that NPCs move.
+@export var npc_speed : int # Now set within inspector. Suggested 100.
+## Chance from float to 1.
+@export var chance_of_steal : float
+## Chance from 0 to float. Suggested 0.1.
+@export var chance_to_stand_still : float
+## Chance from float to 1. Suggested 0.95.
+@export var chance_to_change_direction_upper : float
  
 func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
 	var random_num = randf() # random number between 0 and 1 inclussive.
-	if random_num < 0.1: # bottom 10% chance of standing still.
+	if random_num < chance_to_stand_still: 
 		movement = 0
-	if random_num > 0.95: # top 5% chance of changing direction.
+	if random_num > chance_to_change_direction_upper: # top 5% chance of changing direction.
 		if direction == "right":
 			direction = "left"
-			movement = speed * -1 # negative moves left
+			movement = npc_speed * -1 # negative moves left
 		elif direction == "left":
 			direction = "right"
-			movement = speed * 1 # Positive moves right
+			movement = npc_speed * 1 # Positive moves right
 	#print(movement) # for console visibility of change
 	position.x += movement * delta # Updates the current x axis position of npc.
 	# Below is the timer function for testing the signal.
@@ -47,11 +54,17 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 		_timer_current_time -= WAIT_TIME
 		steal_painting()
 	#print(_timer_current_time) # Prints time for timer.
-
+	# logic for if steal painting should be called.
+	if self.movement == 0 :
+		var random_steal_num = randf()
+		print(random_steal_num)
+		if random_steal_num > chance_of_steal:
+			steal_painting()
 # Functions steal plan
 # Needs to decide if it should still a painting once in range.
-	# random number = chance to steal.
-	# on chance needs to omit a steal signal
+	# DONE random number = chance to steal. EXPORTED
+	# DONE on chance needs to omit a steal signal
+	# Add a timer so an only activate after a minimum time.
 # Steal signal needs to be created in signal hub and called in steal function.
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
