@@ -1,5 +1,6 @@
 extends CharacterBody2D
 class_name Npc
+@onready var timer: Timer = $Timer
 
 # DONE - Walking needs to be called here in a _process()
 # PLAN CHANGED - random number multiplied up to change the x position
@@ -9,54 +10,54 @@ class_name Npc
 #TODO - Steal function
 	   #|- DONE Should emit signal for stealing on the signal hub.
 	   #|- DONE Game manager recieves signal
-	   #|- Game manager should recieve signal and change art/stolen count,
-			# Game manager dictionary of STATE.
-			# change STATE.
+	   #|- TODO Game manager should recieve signal and change art/stolen count,
+			# DONE Game manager dictionary of STATE.
+			# DONE Adds to stolen count.
 			# DONE emit should be called from signal hub.
+			# TODO After stealing had to exit. RANOM left or right.
+			# TODO Needs to pass painting?
 	   #|- Only if in area chance to steal paintings.
-	
-	
-# TODO MATT TEST
-# - Tweak NPC behaviour variables
-# - maybe lower probabilities on behaviour changes
+#	 TODO change int to float for chance_to_steal
 
 const NPC_TYPE = [
 	"visitor",
 	"guard",
 	"thief"
 ]
-# Timer related
-const WAIT_TIME: float = 2.0 
-var _timer_current_time: float = 0.0 
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
-@export var speed : int # Now set within inspector, default 100.
+## The pixels per a draw that NPCs move. Suggested 100
+@export var npc_speed : int 
+## Chance from int in 100. Suggested 5
+@export var chance_of_steal : int
+## Chance from 0 to float. Suggested 0.1.
+@export var chance_to_stand_still : float
+## Chance from float to 1. Suggested 0.95.
+@export var chance_to_change_direction_upper : float
  
 func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
 	var random_num = randf() # random number between 0 and 1 inclussive.
-	if random_num < 0.1: # bottom 10% chance of standing still.
+	if random_num < chance_to_stand_still: 
 		movement = 0
-	if random_num > 0.95: # top 5% chance of changing direction.
+	if random_num > chance_to_change_direction_upper: # top 5% chance of changing direction.
 		if direction == "right":
 			direction = "left"
-			movement = speed * -1 # negative moves left
+			movement = npc_speed * -1 # negative moves left
 		elif direction == "left":
 			direction = "right"
-			movement = speed * 1 # Positive moves right
-	#print(movement) # for console visibility of change
+			movement = npc_speed * 1 # Positive moves right
 	position.x += movement * delta # Updates the current x axis position of npc.
-	# Below is the timer function for testing the signal.
-	_timer_current_time += delta
-	if _timer_current_time >= WAIT_TIME:
-		_timer_current_time -= WAIT_TIME
-		steal_painting()
-	#print(_timer_current_time) # Prints time for timer.
 
-# Functions steal plan
-# Needs to decide if it should still a painting once in range.
-	# random number = chance to steal.
-	# on chance needs to omit a steal signal
-# Steal signal needs to be created in signal hub and called in steal function.
+	if self.movement == 0 :
+		if $Timer.is_stopped() :
+			print("timer stopped")
+			var random_steal_num = randi_range(0,100)
+			if random_steal_num < chance_of_steal:
+				$Timer.start()
+				print("timer restarted")
+				steal_painting()
+# NEEDS TO PASS PAINTING LATER ON.
+
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
