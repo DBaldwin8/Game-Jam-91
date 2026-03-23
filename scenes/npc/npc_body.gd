@@ -8,17 +8,16 @@ class_name Npc
 # Done - NPC types
 # DONE - Function to assign NPC TYPE, in a _ready function, NOTE NO LONGER DONE IN _READY
 #TODO - Steal function
-	   #|- DONE Should emit signal for stealing on the signal hub.
-	   #|- DONE Game manager recieves signal
-	   #|- Done Game manager should recieve signal and change art/stolen count,
-			# DONE Game manager dictionary of STATE.
-			# DONE Adds to stolen count.
-			# DONE emit should be called from signal hub.
-			# DONE After stealing had to exit. RANOM left or right.
-	   #|- TODO Only if in area chance to steal paintings.
-		# TODO Needs to pass painting? NOTE future.
+	# DONE Should emit signal for stealing on the signal hub.
+	# DONE Game manager recieves signal
+	# Done Game manager should recieve signal and change art/stolen count,
+		# DONE Game manager dictionary of STATE.
+		# DONE Adds to stolen count.
+		# DONE emit should be called from signal hub.
+	# DONE After stealing had to exit. RANOM left or right.
+	# TODO Only if in area chance to steal paintings.
+	# TODO Needs to pass painting? NOTE future.
 
-# IMPORTANT TODO ADD COMMENTS TO NEW CODE.
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
