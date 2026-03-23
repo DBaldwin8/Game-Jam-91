@@ -23,17 +23,18 @@ var state = {
 func _ready() -> void:
 	# Connect NPC signals
 	SignalHub.stolen_painting.connect(painting_stolen)
-
+	
 	# Connect UI signals
 	SignalHub.start_btn_clicked.connect(_on_start_btn_clicked)
 	SignalHub.resume_btn_clicked.connect(_on_resume_btn_clicked)
 	SignalHub.menu_btn_clicked.connect(_on_menu_btn_clicked)
 	SignalHub.quit_btn_clicked.connect(_on_quit_btn_clicked)
-
+	
 	# Connect gallery signals
 	SignalHub.NPC_leaving.connect(_on_NPC_leaving)
 	
 	spawn_galleries()
+	
 
 # Placeholder functions for UI signals
 func _on_start_btn_clicked() -> void:
@@ -47,11 +48,11 @@ func _on_menu_btn_clicked() -> void:
 
 func _on_quit_btn_clicked() -> void:
 	print("Quit button clicked - placeholder")
-	
+
 # PLaceholder functions for gallery signals
 func _on_NPC_leaving(npc: Npc) -> void:
 	print(npc.name, "is leaving!")
-	
+
 # Placeholder functions for NPC signals
 func painting_stolen(): #Function to react to the signal
 	state.stolen += 1
