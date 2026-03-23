@@ -17,16 +17,15 @@ class_name Npc
 			# DONE After stealing had to exit. RANOM left or right.
 	   #|- TODO Only if in area chance to steal paintings.
 		# TODO Needs to pass painting? NOTE future.
-	# TODO change int to float for chance_to_steal
 
 # IMPORTANT TODO ADD COMMENTS TO NEW CODE.
 
 var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
-## The pixels per a draw that NPCs move. Suggested 100
+## The pixels per a draw that NPCs move. Suggested 200
 @export var npc_speed : int 
-## Chance from int in 100. Suggested 5
-@export var chance_of_steal : int
+## Chance float in 100. Suggested 0.05
+@export var chance_of_steal : float
 ## Chance from 0 to float. Suggested 0.1.
 @export var chance_to_stand_still : float
 ## Chance from float to 1. Suggested 0.95.
@@ -52,7 +51,6 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 	position.x += movement * delta # Updates the current x axis position of npc.
 	
 	if npc_type == "thief" && self.movement == 0 && $Timer.is_stopped() :
-		print("timer stopped")
 		var random_steal_num = randi_range(0,100)
 		if random_steal_num < chance_of_steal:
 			steal_painting()
@@ -60,7 +58,6 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 			if heist_target <= 0:
 				escape()
 			else:
-				print("timer restarted")
 				$Timer.start()
 # NEEDS TO PASS PAINTING LATER ON.
 
