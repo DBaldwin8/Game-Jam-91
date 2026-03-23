@@ -4,6 +4,7 @@ extends Node
 # tracks and mutates game state only
 # (stolen count, wrong arrests, active thief reference).
 
+# Configuration of level intention for loading from
 var config = {
 	"galleries" = 0,
 	"paintings" = 0,
@@ -12,7 +13,7 @@ var config = {
 	"max wrong arrests" = 0,
 	"max stolen painting" = 0
 }
-
+# Current states that effect score
 var state = {
 	"stolen" = 0,
 	"wrong arrests" = 0
@@ -24,5 +25,3 @@ func _ready() -> void:
 
 func painting_stolen(): #Function to react to the signal
 	state.stolen += 1
-	print(state.stolen)
-	print("CAN CONFIRM")
