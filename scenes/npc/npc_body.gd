@@ -24,7 +24,7 @@ var movement = 0 # initially not moving
 var direction = "right" # For ease of readability.
 ## The pixels per a draw that NPCs move. Suggested 200
 @export var npc_speed : int 
-## Chance float in 100. Suggested 0.05
+## Chance from 0 to float to steal. Suggested 0.05
 @export var chance_of_steal : float
 ## Chance from 0 to float. Suggested 0.1.
 @export var chance_to_stand_still : float
@@ -33,11 +33,11 @@ var direction = "right" # For ease of readability.
 ## enter as thief, visitor or guard
 @export var npc_type : String
 
-var heist_target = 1
-var escaping = false
+var heist_target = 2 # number of painting a thief will attempt to steal before escaping
+var escaping = false # state for if thief is currently escaping
 
 func _process(delta: float) -> void: # delta = time between frames, keeps speed same.
-	if !escaping :
+	if !escaping : # escaping check, to continue the same direction.
 		var random_num = randf() # random number between 0 and 1 inclussive.
 		if random_num < chance_to_stand_still: 
 			movement = 0
@@ -50,21 +50,23 @@ func _process(delta: float) -> void: # delta = time between frames, keeps speed 
 				movement = npc_speed * 1 # Positive moves right
 	position.x += movement * delta # Updates the current x axis position of npc.
 	
+	# Condensed descending if tree to single check.
+	# if the NPC is a thief, not moving and timer is 0...
 	if npc_type == "thief" && self.movement == 0 && $Timer.is_stopped() :
-		var random_steal_num = randi_range(0,100)
-		if random_steal_num < chance_of_steal:
-			steal_painting()
-			heist_target -= 1
+		var random_steal_num = randf() # A random float 0-1
+		if random_steal_num < chance_of_steal: # If that number is less than the chance to steal
+			steal_painting() # steal painting emits signal
+			heist_target -= 1 # heist target number is reduced
 			if heist_target <= 0:
-				escape()
+				escape() # if 0 RUN AWAY!
 			else:
-				$Timer.start()
+				$Timer.start() # else restart timer to steal next painting
 # NEEDS TO PASS PAINTING LATER ON.
 
 func escape():
-	escaping = true
-	var random_escape_direction = 0.5
+	escaping = true # updates state which later skips default change direction behaviour 
+	var random_escape_direction = 0.5 # chance of which direction always 50/50
 	movement = npc_speed * +1 if random_escape_direction < 0.5 else npc_speed * -1
-
+	# This movement speed is set and continues until thief escapes.
 func steal_painting():
 	SignalHub.emit_stolen_painting() # Call to emit signal.
